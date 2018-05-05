@@ -1,6 +1,6 @@
 # add-gitignore
 
-This tiny script connects to [gitignore.io](https://www.gitignore.io), downloads a `.gitignore` file, and saves it into your project.
+This tiny CLI script that generates a `.gitignore` file for your projects.
 
 ## Usage
 
