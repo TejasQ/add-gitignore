@@ -1,0 +1,17 @@
+{
+  "name": "add-gitignore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tejas Kumar <hello@tej.as>",
+  "license": "MIT",
+  "files": ["./index.js"],
+  "bin": {
+    "add-gitignore": "./index.js"
+  },
+  "dependencies": {
+    "app-root-path": "^2.0.1",
+    "meow": "^5.0.0",
+    "ora": "^2.1.0",
+    "request": "^2.85.0"
+  }
+}
