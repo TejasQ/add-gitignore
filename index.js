@@ -21,18 +21,16 @@ if (!cli.input.length) {
 
 // If the process doesn't exist earlier, require and do more stuff.
 const { resolve } = require("path");
-const { createWriteStream } = require("fs");
+const { realPath, createWriteStream } = require("fs");
 const request = require("request");
 const ora = require("ora");
-const rootPath = require("app-root-path");
 
 const spinner = ora("Adding .gitignore...");
 
 request(`https://www.gitignore.io/api/${cli.input.join(",")}`).pipe(
-  createWriteStream(resolve(rootPath.path, ".gitignore"))
+  createWriteStream(resolve(process.cwd(), ".gitignore"))
     .on("open", () => spinner.start())
     .on("close", () => {
-      spinner.color = "green";
       spinner.stopAndPersist({
         symbol: "✅ ",
         text: "Added .gitignore."
