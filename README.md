@@ -8,6 +8,10 @@ This tiny CLI script that generates a `.gitignore` file for your projects.
 
 You'll want to make sure you have [NodeJS](https://nodejs.org/en/) installed on your computer. Then, setup is as simple as:
 
+* `npx add-gitignore`
+
+If you've got an older version of node that doesn't yet have [`npx`](https://www.npmjs.com/package/npx), here's a more traditional setup:
+
 * `npm i -g add-gitignore`
 * `add-gitignore macOS Emacs node # or whatever you need`
 
