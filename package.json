@@ -11,8 +11,13 @@
     "add-gitignore": "./index.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^5.2.0",
+    "inquirer-checkbox-plus-prompt": "^1.0.1",
     "meow": "^5.0.0",
     "ora": "^2.1.0",
     "request": "^2.85.0"
-  }
+  },
+  "devDependencies": {}
 }
