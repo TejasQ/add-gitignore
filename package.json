@@ -4,9 +4,8 @@
   "main": "index.js",
   "author": "Tejas Kumar <hello@tej.as>",
   "license": "MIT",
-  "files": [
-    "./index.js"
-  ],
+  "keywords": ["interactive", "cli", "gitignore", "workflow"],
+  "files": ["./index.js"],
   "bin": {
     "add-gitignore": "./index.js"
   },
