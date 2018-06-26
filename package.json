@@ -14,7 +14,8 @@
     "./index.js"
   ],
   "bin": {
-    "add-gitignore": "./index.js"
+    "add-gitignore": "./index.js",
+    "git-addignore": "./index.js"
   },
   "dependencies": {
     "chalk": "^2.4.1",
