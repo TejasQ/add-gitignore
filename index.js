@@ -63,7 +63,7 @@ if (!cli.input.length) {
       {
         type: "checkbox-plus",
         name: "input",
-        message: "What environments would your .gitignore to ignore?",
+        message: "What environments do you want your .gitignore to ignore?",
         choices: results.map(name => ({ name })),
         pageSize: 10,
         highlight: true,
