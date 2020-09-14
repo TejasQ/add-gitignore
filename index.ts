@@ -1,7 +1,9 @@
 #!/usr/bin/env node
-const meow = require("meow");
-const request = require("request");
-const ora = require("ora");
+import meow from "meow";
+import request from "request";
+import ora from "ora";
+import fuzzy from "fuzzy";
+import { registerPrompt, prompt } from "inquirer";
 
 const cli = meow(`This really simple script quickly fetches a .gitignore
 file from gitignore.io based on your needs and adds it
@@ -14,7 +16,7 @@ Usage
 Examples
     $ add-gitignore macOS Emacs node`);
 
-const writeGitIgnore = envs => {
+const writeGitIgnore = (envs: string[]) => {
   const { resolve } = require("path");
   const { createWriteStream } = require("fs");
   const { green } = require("chalk");
@@ -27,9 +29,9 @@ const writeGitIgnore = envs => {
       .on("close", () => {
         spinner.stopAndPersist({
           symbol: "✅ ",
-          text: `Added .gitignore for ${green.bold(envs.join(", "))}.`
+          text: `Added .gitignore for ${green.bold(envs.join(", "))}.`,
         });
-      })
+      }),
   );
 };
 
@@ -39,14 +41,11 @@ const writeGitIgnore = envs => {
  * user to choose some stuff.
  */
 if (!cli.input.length) {
-  const { registerPrompt, prompt } = require("inquirer");
-  const fuzzy = require("fuzzy");
-
   const spinner = ora("Fetching environments...").start();
 
   registerPrompt("checkbox-plus", require("inquirer-checkbox-plus-prompt"));
 
-  request("https://www.gitignore.io/api/list", {}, (error, response, body) => {
+  request("https://www.gitignore.io/api/list", {}, (error, _, body: string) => {
     if (error) {
       console.log("Error", error);
       process.exit(1);
@@ -56,7 +55,7 @@ if (!cli.input.length) {
     const results = body
       .replace(/\n/g, ",")
       .split(",")
-      .filter(item => item.length > 0);
+      .filter((item) => item.length > 0);
     spinner.stop();
 
     prompt([
@@ -64,21 +63,19 @@ if (!cli.input.length) {
         type: "checkbox-plus",
         name: "input",
         message: "What environments do you want your .gitignore to ignore?",
-        choices: results.map(name => ({ name })),
+        choices: results.map((name) => ({ name })),
         pageSize: 10,
         highlight: true,
         searchable: true,
-        source: (answersSoFar, input = "") =>
-          Promise.resolve(
-            fuzzy.filter(input, results).map(({ original }) => original)
-          ),
-        validate: function(answer) {
+        source: (_: unknown, input = "") =>
+          Promise.resolve(fuzzy.filter(input, results).map(({ original }) => original)),
+        validate: function (answer: string) {
           if (answer.length < 1) {
             return "You must choose at least one environment to ignore.";
           }
           return true;
-        }
-      }
+        },
+      },
     ]).then(({ input }) => {
       writeGitIgnore(input);
     });
