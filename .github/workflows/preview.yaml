@@ -15,4 +15,4 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - name: Preview
-        uses: tejasq/cli-preview@HEAD
+        uses: tejasq/cli-preview#HEAD
